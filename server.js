@@ -5,16 +5,19 @@ import db from './db/conn.js';
 const app = express();
 const PORT = 3000;
 
-app.json();
+// app.json();
 
 //middleware
 app.use(express.json()); //middleware that runs before routes.
-app.use(logReq);
+// app.use(logReq);
 
 //routes
 app.use("/Animals",Animals);
 app.use("/Diet",Diet);
 app.use("/Food",Food);
+app.get('/',function(req,res){
+    res.send('i runnn');
+});
 
 
 //errorhandleing

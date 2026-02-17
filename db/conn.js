@@ -18,3 +18,4 @@ try {
 
 let db = conn.db("test_db")
 
+export default db;
