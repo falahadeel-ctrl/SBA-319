@@ -1,6 +1,6 @@
 //imports
-import express from "expess";
-import db from './db/conn';
+import express from "express";
+import db from './db/conn.js';
 
 const app = express();
 const PORT = 3000;
@@ -8,10 +8,17 @@ const PORT = 3000;
 app.json();
 
 //middleware
-app.use(app.json()); //middleware that runs before routes.
+app.use(express.json()); //middleware that runs before routes.
 app.use(logReq);
 
 //routes
+app.use("/Animals",Animals);
+app.use("/Diet",Diet);
+app.use("/Food",Food);
+
 
 //errorhandleing
 //handler
+app.listen(PORT, function(){
+    console.log(`Server is runing successfully on ${PORT}`);
+});
