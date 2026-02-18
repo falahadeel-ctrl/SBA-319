@@ -24,7 +24,10 @@ router.post('/' ,async function (req, res){
 router.patch('/', async (req, res)=>{
     let collection = await db.collection(diet);
     let update = await db.collection.updateOne(
-        //understand this 
+        {type: req.params.type},
+        {type: req.body}
     );
-
+ res.json(result);
 })
+
+export default router
