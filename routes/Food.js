@@ -21,7 +21,7 @@ router.post('/', async function (req, res){
 
 //updateing food
 
-router.put('/',async(req, res){
+router.put('/:name',async(req, res)=>{
     let collection = await db.collection('food');
     let result = await db.collection.findOneAndUpdate(
         {name: req.params.name},
@@ -32,7 +32,7 @@ router.put('/',async(req, res){
 
 //deleteing food
 
-router.delete('/',async (req, res)=>{
+router.delete('/:name',async (req, res)=>{
     let collection= await db.collection('food');
     let result = await collection.deleteOne({name: req.params.name});
     res.json('result');

@@ -6,15 +6,15 @@ const router = express.Router();
 //Getting all diet
 
 router.get('/', async(req, res) => {
-    let collection = await db.collection(`diets`);
-    let result = await db.collection.find({}).toarray();
+    let collection = await db.collection(`diet`);
+    let result = await db.collection.find({}).toArray();
     res.json(result);
 });
 
 //posting new diet
 
 router.post('/' ,async function (req, res){
- let collection = await db.collection(`diet`);
+ let collection = await db.collection('diet');
  let result = await db.collection.insertOne(newDiet);
  res.json(result);
 });
@@ -25,7 +25,7 @@ router.patch('/', async (req, res)=>{
     let collection = await db.collection(diet);
     let update = await db.collection.updateOne(
         {type: req.params.type},
-        {type: req.body}
+        {$set: req.body}
     );
  res.json(result);
 })
