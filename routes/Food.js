@@ -7,15 +7,16 @@ const router = express.Router(); //modular route handler
 
 router.get('/',async (req,res)=>{
 let collection = await db.collection(`food`);
-let result= await db.collection.find({}).toArray();
+let result= await collection.find({}).toArray();
 res.json(result);
 });
 
 //posting new food
 
 router.post('/', async function (req, res){
+    let  newFood= req.body;
     let collection = await db.collection('food');
-    let result = await db.collection.insertOne(newFood);
+    let result = await collection.insertOne(newFood);
     res.json(result);
 })
 
@@ -23,7 +24,7 @@ router.post('/', async function (req, res){
 
 router.put('/:name',async(req, res)=>{
     let collection = await db.collection('food');
-    let result = await db.collection.findOneAndUpdate(
+    let result = await collection.findOneAndUpdate(
         {name: req.params.name},
         {$set: req.body}
     );

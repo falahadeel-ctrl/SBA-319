@@ -16,6 +16,6 @@ try {
     process.exit(1); //shuts down the whole server cuz of an error
 }
 
-let db = conn.db("test_db")
+let db = conn.db("SBA-319")
 
 export default db;

@@ -1,6 +1,6 @@
 import express from 'express';
 // import conn from `../db/conn.js`;
-import db from '../db/conn';
+import db from '../db/conn.js';
 
 const router = express.Router();
 
@@ -18,7 +18,7 @@ res.status(500).json({error:err.message});
 router.post(`/`,async (req,res)=>{
     let newAnimal = req.body;
     let collection = await db.collection(`animals`);
-    let result = await collection.insertOne("newAnimal");
+    let result = await collection.insertOne(newAnimal);
    res.json(result);
 });
 
@@ -26,7 +26,7 @@ router.post(`/`,async (req,res)=>{
 router.patch('/:name',async (req, res)=>{
     let collection =  await db.collection(`animals`);
     let result = await collection.findOneAndUpdate(
-        {name: required.params.name},
+        {name: req.params.name},
         {$set: req.body}
     );
     res.json(result);
@@ -34,7 +34,7 @@ router.patch('/:name',async (req, res)=>{
 
 router.delete('/:name', async(req, res)=>{
     let collection = await db.collection(`animals`);
-    let result = await db.collection.deleteOne({name: req.params.name});
+    let result = await collection.deleteOne({name: req.params.name});
     res.json(result);
 });
 

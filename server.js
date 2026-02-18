@@ -4,7 +4,7 @@ import db from './db/conn.js';
 
 import Animals from "./routes/Animals.js";
 import Food from './routes/Food.js';
-import Diet from './routes/Diet.js';
+import legs from './routes/legs.js';
 
 const app = express();
 const PORT = 3000;
@@ -16,9 +16,9 @@ app.use(express.json()); //middleware that runs before routes.
 // app.use(logReq);
 
 //routes
-app.use("/Animals",Animals);
-app.use("/Diet",Diet);
-app.use("/Food",Food);
+app.use("/animals",Animals);
+app.use("/legs",legs);
+app.use("/food",Food);
 // app.get('/',function(req,res){
 //     res.send('i runnn');
 // });
