@@ -2,8 +2,8 @@ import db from './conn.js';
 
 async function addValidation(){
     try{
-        await db.command({ //what is command,collMod,validationAction,$jsonSchema,?
-            collMod: "animals",
+        await db.command({ //what is command means executing this databse just as given/wrriten,collMod,validationAction,$jsonSchema,?
+            collMod: "animals", //
             validator: {
                 $jsonSchema: {
                         bsonType: "object",
@@ -13,6 +13,7 @@ async function addValidation(){
                                 bsonType: "String"
                             }
                         }
+                        
                 }
             },
             valitionAction: "error"
