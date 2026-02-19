@@ -1,0 +1,2 @@
+## Description
+A simple application Built with Node.js, Express, and MongoDB. it has data indexes for optimization. Includes validation to ensure consistancy.Manages information related to animals and their physical characteristics also their food types.
