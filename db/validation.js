@@ -1,31 +1,45 @@
-import db from './conn.js';
+import express from "express";
+import db from "./conn.js";
 
-async function addValidation() {
-    try {
-        await db.command({ //what is command means executing this databse just as given/wrriten
-            collMod: "animals", // collMod tells which collection in mongodb is to be modified
-            validator: {  //now actually applying validation useing validator
-          
-        
-                $jsonSchema: {   //validate useing JSON schema rules
-                    bsonType: "object",
-                    required: ["name"],
-                    properties: {
-                        name: {
-                            bsonType: "String"
-                        }
-                    }
+const PORT = 3001;
+const app = express();
 
-                }
-            }
-            // valitionAction: "error"   //tells what happens if incase validation fails
-        });
-        console.log("validation added");
-        process.exit(0);
-    } catch (error) {
-        console.error("error", error.message);
-        process.exit(1);
+app.use(express.json());
+
+// Add validation - IMMEDIATELY INVOKED
+(async () => {
+  await db.command({
+    collMod: "animals",
+    validator: {
+      $jsonSchema: {
+        bsonType: "object",
+        title: "Animal Validation",
+        required: ["name"],
+        properties: {
+          name: {
+            bsonType: "string",
+            description: "'name' is required and must be a string",
+          }
+        }
+      }
     }
-}
+  });
+  console.log("✅ Validation added!");
+})(); // ← Added () to CALL the function!
 
-addValidation();
+// Test the validation
+app.get("/", async (req, res) => {
+  let collection = await db.collection("animals");
+  let newDocument = {
+    name: 123 // ❌ Invalid - number instead of string
+  };
+
+  let result = await collection.insertOne(newDocument).catch((e) => {
+    return e.errInfo.details.schemaRulesNotSatisfied;
+  });
+  res.send(result).status(204);
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port: ${PORT}`);
+});
